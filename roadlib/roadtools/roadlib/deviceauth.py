@@ -9,6 +9,9 @@ import string
 import codecs
 import jwt
 import requests
+#opsec: monkey-patch the user agent
+DEFAULT_USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; WebView/3.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.19045"
+requests.utils.default_user_agent = lambda: DEFAULT_USER_AGENT
 import os
 import time
 import warnings
@@ -408,6 +411,7 @@ class DeviceAuthentication():
 
         headers = {
             'Authorization': f'Bearer {access_token}',
+            'User-Agent': f'Dsreg/10.0 (Windows {os_version})',
             'Content-Type': 'application/json'
         }
 
